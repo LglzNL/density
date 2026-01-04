@@ -1,14 +1,10 @@
+
 # DENSITY
 
-DENSITY erhöht die Dichte (mehr Instanzen pro Host), indem es RAM-Druck reduziert.
-Ziel: messbare Ergebnisse mit reproduzierbaren Benchmarks.
+DENSITY reduziert RAM-Druck auf Linux-Hosts (KSM), damit mehr Instanzen pro Maschine laufen.
 
 ## Download
-Kommt über GitHub Releases.
+Releases: coming soon
 
-## Benchmarks
-Methodik, Rohdaten und Reports werden veröffentlicht.
-
-## Spenden (Donate)
-- GitHub Sponsors: (Link folgt)
-- OpenCollective: (optional später)
+## Donate
+GitHub Sponsors: coming soon
