@@ -1,0 +1,25 @@
+ DENSITY – Installation & Test
+
+Ziel (wichtig)
+DENSITY ist im MVP Linux-first, weil es Kernel-Funktionen wie KSM nutzt (`/sys/kernel/mm/ksm`).
+Windows kann den Quellcode auspacken/lesen, aber der echte Effekt wird unter Linux demonstriert.
+
+
+ A) Windows (Quellcode prüfen / Archiv testen)
+
+ 1) ZIP entpacken
+
+- Rechtsklick → ---Alle extrahieren---
+
+
+- oder 7-Zip verwenden
+
+
+
+ 2) SHA256 prüfen (ohne certutil)
+
+Wenn `certutil` nicht verfügbar ist, nutze PowerShell-Befehl `Get-FileHash`:
+
+  powershell
+
+  Get-FileHash ".\density-0.0.1-source-verified.zip" -Algorithm SHA256
