@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DENSITY Benchmarks</title>
+  <meta name="description" content="Reproduzierbare Benchmarks für DENSITY (KSM): Methodik, Profile, Rohdaten." />
+  <link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="container">
+      <div class="brand">
+        <div class="logo">D</div>
+        <div>
+          <div class="name">DENSITY</div>
+          <div class="tag">Benchmarks · Methodik · Rohdaten</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="./index.html">Start</a>
+        <a href="#methodik">Methodik</a>
+        <a href="#daten">Daten</a>
+        <a class="ghost" href="https://github.com/LglzNL/density">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container grid">
+        <div>
+          <h1>Benchmarks, die man nachbauen kann.</h1>
+          <p class="lead">
+            DENSITY veröffentlicht Ergebnisse nur mit Methodik + Rohdaten. Kein „Marketing-Benchmark“.
+            Der Fokus im MVP ist <b>RAM-Dichte</b> (KSM).
+          </p>
+
+          <div class="codecard">
+            <div class="codehead">
+              <span>Minimal: Run + Publish</span>
+              <span class="small">Linux · sudo</span>
+            </div>
+            <pre><code>sudo densityctl enable
+sudo densityctl bench --profile P1 --scale 10..80..10 --mem-mib 256 --out results \
+  --publish docs/data/benchmarks.latest.json
+
+# dann commit/push, damit GitHub Pages es lädt</code></pre>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Profile</div>
+          <ul class="list">
+            <li><b>P1 (identisch)</b>: maximaler Merge-Effekt (Proof).</li>
+            <li><b>P2 (ähnlich)</b>: realistischere Divergenz.</li>
+            <li><b>P3 (worst-case)</b>: zeigt Grenzen & CPU-Kosten.</li>
+          </ul>
+          <div class="note">
+            Ziel ist nicht „immer schneller“, sondern: <b>mehr Workloads auf gleicher Maschine</b>
+            bei kontrollierten Trade-offs.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="methodik" class="section">
+      <div class="container">
+        <h2>Methodik</h2>
+        <div class="columns">
+          <div class="mini">
+            <h3>Metriken</h3>
+            <p>
+              KSM-Stats (pages_shared/pages_sharing), MemAvailable, Alive-Instanzen,
+              und (best-effort) ksmd CPU-Ticks als „Kostenindikator“.
+            </p>
+          </div>
+          <div class="mini">
+            <h3>Warmup</h3>
+            <p>
+              KSM braucht Zeit zum Scannen/Mergen. Deshalb gibt es einen Warmup (Default 20s).
+              Kürzer = weniger Merge, länger = mehr Merge (und ggf. mehr CPU).
+            </p>
+          </div>
+          <div class="mini">
+            <h3>Fairness</h3>
+            <p>
+              Gleiche Maschine, gleiche Skala, gleiche Warmup-Zeit. Baseline = KSM aus.
+              DENSITY = KSM an (konservativ getunt).
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="daten" class="section alt">
+      <div class="container">
+        <h2>Aktuell veröffentlichte Daten</h2>
+        <p>
+          Diese Tabelle wird automatisch aus <code>docs/data/benchmarks.latest.json</code> geladen.
+          Wenn noch keine Datei vorhanden ist, siehst du nur den Platzhalter.
+        </p>
+
+        <div class="tablewrap">
+          <table id="bench-table">
+            <thead>
+              <tr>
+                <th>N</th>
+                <th>Alive</th>
+                <th>Saved (MiB)</th>
+                <th>ksmd ticks Δ</th>
+                <th>MemAvail vorher (MiB)</th>
+                <th>MemAvail nachher (MiB)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="6">Noch keine Daten geladen. (siehe Anleitung oben)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="small" id="bench-meta"></p>
+
+        <div class="card" style="margin-top:16px">
+          <div class="card-title">Trade-offs / Sicherheit</div>
+          <ul class="list">
+            <li><b>CPU</b>: KSM scannt und kostet CPU. DENSITY startet konservativ (geringe Scanrate) und misst mit.</li>
+            <li><b>Latenz</b>: Bei aggressivem Tuning kann sich das bemerkbar machen – deshalb Bench + Defaults.</li>
+            <li><b>Multi-Tenant</b>: Memory-Dedup kann Side-Channel-Risiken erhöhen. Für untrusted Multi-Tenant sollte KSM oft aus bleiben.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="small">
+        <a href="./index.html">Start</a> ·
+        <a href="https://github.com/LglzNL/density">Repository</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./assets/benchmarks.js"></script>
+</body>
+</html>

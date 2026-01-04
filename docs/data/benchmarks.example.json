@@ -1,0 +1,30 @@
+{
+  "started_at": "2026-01-01T00:00:00Z",
+  "profile": "P1",
+  "steps": [
+    {
+      "n": 10,
+      "alive": 10,
+      "estimated_saved_mib": 0.0,
+      "ksmd_ticks_delta": 0,
+      "pre_mem_kb": {
+        "MemAvailable": 0
+      },
+      "post_mem_kb": {
+        "MemAvailable": 0
+      }
+    },
+    {
+      "n": 20,
+      "alive": 20,
+      "estimated_saved_mib": 0.0,
+      "ksmd_ticks_delta": 0,
+      "pre_mem_kb": {
+        "MemAvailable": 0
+      },
+      "post_mem_kb": {
+        "MemAvailable": 0
+      }
+    }
+  ]
+}
