@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DENSITY – Mehr Instanzen pro Host durch weniger RAM-Druck</title>
+  <meta name="description" content="DENSITY erhöht Compute-Dichte auf Linux-Hosts, indem es RAM-Druck reduziert (KSM) – mit reproduzierbaren Benchmarks und One-Command-Revert." />
+
+  <!-- Open Graph (für Social Preview) -->
+  <meta property="og:title" content="DENSITY" />
+  <meta property="og:description" content="Mehr Instanzen pro Host durch weniger RAM-Druck (KSM). Reproduzierbare Benchmarks. Transparent. Revertierbar." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://lglznl.github.io/density/" />
+
+  <link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="container">
+      <div class="brand">
+        <div class="logo">D</div>
+        <div>
+          <div class="name">DENSITY</div>
+          <div class="tag">Linux · RAM · Dichte</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="#quickstart">Quickstart</a>
+        <a href="#benchmarks">Benchmarks</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#donate">Donate</a>
+        <a class="ghost" href="https://github.com/LglzNL/density">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container grid">
+        <div>
+          <h1>Mehr Instanzen pro Host<br/>durch weniger RAM-Druck.</h1>
+          <p class="lead">
+            DENSITY nutzt Linux-Kernel-Mechanismen (KSM) und sauberes Tuning, um identische/ähnliche Workloads dichter zu packen.
+            Transparent, reproduzierbar, jederzeit revertierbar.
+          </p>
+
+          <div class="cta">
+            <a class="btn" href="https://github.com/LglzNL/density/releases">Download (Releases)</a>
+            <a class="btn secondary" href="#benchmarks">Benchmarks ansehen</a>
+          </div>
+
+          <div class="meta">
+            <span class="pill">Linux-first</span>
+            <span class="pill">Reproducible Benchmarks</span>
+            <span class="pill">One-command revert</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Versprechen (ehrlich)</div>
+          <ul class="list">
+            <li><b>Mehr Dichte</b> bei RAM-limitierenden Workloads (VM/Worker-Farms).</li>
+            <li><b>Transparente Metriken</b> (KSM-Stats, RAM, Swap, PSI).</li>
+            <li><b>Kein Blackbox-Kernelmodul</b> im MVP: nur standardisierte Interfaces.</li>
+          </ul>
+          <div class="note">
+            Hinweis: Effekt ist workload-abhängig. DENSITY veröffentlicht deshalb auch Worst-Case-Profile.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="quickstart" class="section">
+      <div class="container">
+        <h2>Quickstart</h2>
+        <p>Für den MVP fokussieren wir Linux. (Windows kann später Roadmap sein.)</p>
+
+        <div class="codecard">
+          <div class="codehead">
+            <span>Beispiel (kommt mit dem ersten Release)</span>
+            <span class="small">Root-Rechte nötig (KSM sysfs)</span>
+          </div>
+          <pre><code>sudo densityctl enable
+densityctl status
+sudo densityctl bench --profile P1 --scale 10..200 --out results/</code></pre>
+        </div>
+
+        <div class="columns">
+          <div class="mini">
+            <h3>Enable</h3>
+            <p>Aktiviert KSM + setzt konservative Defaults. Alles ist revertierbar.</p>
+          </div>
+          <div class="mini">
+            <h3>Status</h3>
+            <p>Zeigt KSM-Kennzahlen (Shared Pages etc.) + Host-Memory-Druck.</p>
+          </div>
+          <div class="mini">
+            <h3>Bench</h3>
+            <p>Reproduzierbare Profile (P1–P3) + Rohdaten + Report.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="benchmarks" class="section alt">
+      <div class="container">
+        <h2>Benchmarks</h2>
+        <p>
+          DENSITY veröffentlicht nicht nur „schöne Zahlen“, sondern Methodik + Rohdaten.
+          Ziel: Jede/r kann die Ergebnisse nachbauen.
+        </p>
+
+        <div class="columns">
+          <div class="mini">
+            <h3>P1 – Identisch</h3>
+            <p>Maximaler Effekt, ideal für Proof.</p>
+          </div>
+          <div class="mini">
+            <h3>P2 – Ähnlich</h3>
+            <p>Realistische Worker-/CI-Lasten.</p>
+          </div>
+          <div class="mini">
+            <h3>P3 – Worst Case</h3>
+            <p>Grenzen transparent machen.</p>
+          </div>
+        </div>
+
+        <div class="links">
+          <a class="link" href="https://github.com/LglzNL/density/tree/main/benchmarks">Rohdaten/Reports (Repo)</a>
+          <a class="link" href="https://github.com/LglzNL/density/blob/main/README.md">Methodik (README)</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="roadmap" class="section">
+      <div class="container">
+        <h2>Roadmap</h2>
+        <div class="roadmap">
+          <div class="step">
+            <div class="k">0</div>
+            <div>
+              <div class="t">Projektgerüst + Pages</div>
+              <div class="d">Repo-Struktur, Policies, Landing Page.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="k">1</div>
+            <div>
+              <div class="t">MVP CLI</div>
+              <div class="d">densityctl enable/disable/status (Linux).</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="k">2</div>
+            <div>
+              <div class="t">Bench + Report</div>
+              <div class="d">Profile P1–P3, Rohdaten, Report-Generator.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="k">3</div>
+            <div>
+              <div class="t">Video-Proof</div>
+              <div class="d">Vorher/Nachher + Live-Metriken, reproduzierbar.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="donate" class="section alt">
+      <div class="container">
+        <h2>Donate</h2>
+        <p>Wenn DENSITY dir RAM und Kosten spart: Unterstützung hält das Projekt gesund.</p>
+        <div class="cta">
+          <a class="btn" href="https://github.com/sponsors/LglzNL">GitHub Sponsors</a>
+          <a class="btn secondary" href="https://opencollective.com/">OpenCollective (optional später)</a>
+        </div>
+        <p class="small">
+          Tipp: OpenCollective eignet sich, wenn du Ausgaben/Rechnungen transparent zeigen willst.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="small">
+        © DENSITY · Open Source · <a href="https://github.com/LglzNL/density">Repository</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
